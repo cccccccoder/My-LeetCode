@@ -9,8 +9,7 @@ package org.blue.learning.leetcode.day10;
 public class LongestCommonPrefix {
 
     public static void main(String[] args) {
-//        System.out.println(longestCommonPrefix(new String[] {"aaa", "bbb", "ccc"}));
-        System.out.println(97 ^ 98);
+        System.out.println(longestCommonPrefix(new String[] {"a","a","b"}));
     }
 
     public static String longestCommonPrefix(String[] strs) {
@@ -20,27 +19,33 @@ public class LongestCommonPrefix {
         if (strs.length == 1) {
             return strs[0];
         }
-        int index = 0;
-        int xorResult;
-        StringBuilder result = new StringBuilder();
-        while(true) {
-            xorResult = -1;
-            for (String s : strs) {
-                if (index < s.length()) {
-                    if (xorResult == -1) {
-                        xorResult = s.charAt(index);
-                    } else {
-                        xorResult = xorResult ^ s.charAt(index);
-                    }
+        // 只需要比较最短的那个字符串和其他任意一个
+        int shortestStrIndex = 0;
+        for (int i = 1; i < strs.length; i ++) {
+            if (strs[i].length() < strs[shortestStrIndex].length()) {
+                shortestStrIndex = i;
+            }
+        }
+        String shortestString = strs[shortestStrIndex];
+        StringBuilder result = new StringBuilder(shortestString.length());
+        for (int i = 0; i < shortestString.length(); i ++) {
+            int hitNum = 0;
+            for (int j = 0; j < strs.length; j ++) {
+                if (j == shortestStrIndex) {
+                    continue;
+                }
+                String otherString = strs[j];
+                if (shortestString.charAt(i) == otherString.charAt(i)) {
+                    hitNum ++;
                 } else {
                     return result.toString();
                 }
             }
-            if (xorResult == 0) {
-                return result.toString();
+            if (hitNum == strs.length - 1) {
+                result.append(shortestString.charAt(i));
             }
-            result.append(strs[0].charAt(index));
-            index ++;
+
         }
+        return result.toString();
     }
 }
