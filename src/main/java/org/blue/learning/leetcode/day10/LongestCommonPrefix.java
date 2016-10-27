@@ -9,7 +9,8 @@ package org.blue.learning.leetcode.day10;
 public class LongestCommonPrefix {
 
     public static void main(String[] args) {
-        System.out.println(longestCommonPrefix(new String[] {"aaa", "bbb", "ccc"}));
+//        System.out.println(longestCommonPrefix(new String[] {"aaa", "bbb", "ccc"}));
+        System.out.println(97 ^ 98);
     }
 
     public static String longestCommonPrefix(String[] strs) {
