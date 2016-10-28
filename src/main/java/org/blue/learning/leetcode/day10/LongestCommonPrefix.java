@@ -19,7 +19,7 @@ public class LongestCommonPrefix {
         if (strs.length == 1) {
             return strs[0];
         }
-        // 只需要比较最短的那个字符串和其他任意一个
+        // 只需要比较最短的那个字符串和其他
         int shortestStrIndex = 0;
         for (int i = 1; i < strs.length; i ++) {
             if (strs[i].length() < strs[shortestStrIndex].length()) {
