@@ -12,7 +12,7 @@ public class ThreeSum {
 
     public static void main(String[] args) {
 //        int[] nums = new int[] {-1, 0, 1, 2, -1, -4};
-        int [] nums = new int[] {-2,0,0,2,2};
+        int [] nums = new int[] {0,0,0};
         List<List<Integer>> list = threeSum(nums);
         for (List<Integer> triplets : list) {
             System.out.print("[");
@@ -59,7 +59,9 @@ public class ThreeSum {
                     list.add(nums[left]);
                     list.add(nums[right]);
                     result.add(list);
+                    // 跳过重复的数
                     while (left < right && nums[left] == nums[left+1]) left++;
+                    // 跳过重复的数
                     while (left < right && nums[right] == nums[right-1]) right--;
                     left ++;
                     right --;
