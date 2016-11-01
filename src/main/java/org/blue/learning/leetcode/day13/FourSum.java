@@ -22,7 +22,7 @@ public class FourSum {
     }
 
     /**
-     * 两两求和，组成新的数组，排序后转换为2sum问题
+     * K sum问题求解都类似，逐步化解为2Sum问题
      * @param nums
      * @param target
      * @return
@@ -43,6 +43,7 @@ public class FourSum {
                 if (j > i + 1 && nums[j] == nums[j - 1]) {
                     continue;
                 }
+                // 求解2sum
                 int twoSumTarget = threeSumTarget - nums[j];
                 int left = j + 1;
                 int right = nums.length - 1;
