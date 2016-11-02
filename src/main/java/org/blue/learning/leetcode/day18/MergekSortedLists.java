@@ -4,7 +4,7 @@ package org.blue.learning.leetcode.day18;
 /**
  * Created by klein on 2016/11/1.
  */
-public class MergeKSortedLists {
+public class MergekSortedLists {
 
     public static void main(String[] args) {
         ListNode list1 = null;

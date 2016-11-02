@@ -18,10 +18,10 @@ public class SwapNodesInPairs {
                 currentNode = temp;
             }
         }
-        swapPairs(list1);
-        while (list1 != null) {
-            System.out.println(list1.val);
-            list1 = list1.next;
+        ListNode result = swapPairs(list1);
+        while (result != null) {
+            System.out.println(result.val);
+            result = result.next;
         }
     }
     public static class ListNode {
@@ -33,19 +33,18 @@ public class SwapNodesInPairs {
         if (head == null) {
             return null;
         }
-        ListNode l1 = head;
+        ListNode l1 = new ListNode(-1);
+        l1.next = head;
         ListNode l2 = head.next;
         if (l2 == null) {
-            return l1;
+            return head;
         }
         ListNode result = l2;
-        ListNode temp;
         while (l1 != null && l2 != null) {
-            l1.next = l2.next;
-            l2.next = l1;
-            temp = l1;
-            l1 = l2;
-            l2 = temp;
+            l1.next.next = l2.next;
+            l2.next = l1.next;
+            l1.next = l2;
+            l2 = l2.next;
             for (int i = 0; i < 2; i ++) {
                 if (l2 == null) {
                     break;
