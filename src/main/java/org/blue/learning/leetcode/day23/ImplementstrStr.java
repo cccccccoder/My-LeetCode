@@ -8,10 +8,8 @@ package org.blue.learning.leetcode.day23;
 public class ImplementstrStr {
 
     public static void main(String[] args) {
-        int[] next = figureOutNextArray("ABCDABD");
-        for (int i : next) {
-            System.out.println(i);
-        }
+
+        System.out.println(strStr("a", "a"));
     }
 
     /**
@@ -24,7 +22,10 @@ public class ImplementstrStr {
         if (haystack == null || needle == null) {
             return -1;
         }
-        if (haystack.equals(needle)) {
+        if (needle.length() > haystack.length()) {
+            return -1;
+        }
+        if (needle.length() == 0) {
             return 0;
         }
         int[] next = figureOutNextArray(needle);
@@ -35,13 +36,18 @@ public class ImplementstrStr {
         while (haystackIndex < haystack.length()) {
             index = 0;
             temp = haystackIndex;
-            while (index < needle.length() && temp < haystack.length() && needle.charAt(index) == haystack.charAt(temp)) {
+            while (temp >= 0 && index < needle.length() && temp < haystack.length() && needle.charAt(index) == haystack.charAt(temp)) {
                 index ++;
                 temp ++;
             }
             if (index == needle.length()) {
                 return haystackIndex;
             }
+            int skip = next[index];
+            if (skip <=0 ) {
+                skip = 1;
+            }
+            haystackIndex += skip;
         }
 
         return result;
