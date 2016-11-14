@@ -21,7 +21,7 @@ public class SearchInRotatedSortedArray {
     public int search(int[] nums, int target) {
         // 找到旋转点
 
-        return 0;
+        return search(nums, target, 0, nums.length - 1);
     }
 
     public int search(int[] nums, int target, int left, int right) {
@@ -39,11 +39,17 @@ public class SearchInRotatedSortedArray {
             // mid是属于右半段的
             if (nums[mid + 1] <= target && nums[right] >= target) {
                 return binarySearch(nums, target, mid + 1, right);
+            } else {
+                return search(nums, target, left, mid);
             }
         } else {
-
+            // mid 属于左半端
+            if (nums[mid] >= target && nums[left] <= target) {
+                return binarySearch(nums, target, left, mid);
+            } else {
+                return search(nums, target, mid + 1, right);
+            }
         }
-        return -1;
     }
 
     public int binarySearch(int[] nums, int target, int left, int right) {
