@@ -24,6 +24,28 @@ public class SearchInRotatedSortedArray {
         return 0;
     }
 
+    public int search(int[] nums, int target, int left, int right) {
+        if (left > right) {
+            return -1;
+        }
+        if (nums[left] < nums[right]) {
+            return binarySearch(nums, target, left, right);
+        }
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        }
+        if (nums[left] > nums[mid]) {
+            // mid是属于右半段的
+            if (nums[mid + 1] <= target && nums[right] >= target) {
+                return binarySearch(nums, target, mid + 1, right);
+            }
+        } else {
+
+        }
+        return -1;
+    }
+
     public int binarySearch(int[] nums, int target, int left, int right) {
         if (left > right) {
             return -1;
@@ -34,20 +56,11 @@ public class SearchInRotatedSortedArray {
         if (nums[right] == target) {
             return right;
         }
-        int mid = left + (left - right) / 2;
-        if (nums[mid] < nums[left]) {
-            // mid 在右半段
-            if (target > nums[mid]) {
-                // 目标数字大于中间数字 可能在右半段 也可能在左半段
-                if (target == nums[left]) {
-                    return left;
-                } else if (target > nums[left]) {
-
-                }
-            } else {
-                // 目标数字比中间数字小，一定在左半段
-            }
+        int mid = left + (right - left) / 2;
+        if (nums[mid] > target) {
+            return binarySearch(nums, target, left, mid);
+        } else {
+            return binarySearch(nums, target, mid + 1, right);
         }
-        return -1;
     }
 }
