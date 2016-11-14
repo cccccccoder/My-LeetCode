@@ -8,7 +8,7 @@ package org.blue.learning.leetcode.day28;
 public class SearchInRotatedSortedArray {
 
     public static void main(String[] args) {
-
+        System.out.println(search(new int[] {1, 3}, 0));
     }
 
     /**
@@ -18,13 +18,12 @@ public class SearchInRotatedSortedArray {
      * @param target
      * @return
      */
-    public int search(int[] nums, int target) {
+    public static int search(int[] nums, int target) {
         // 找到旋转点
-
         return search(nums, target, 0, nums.length - 1);
     }
 
-    public int search(int[] nums, int target, int left, int right) {
+    public static int search(int[] nums, int target, int left, int right) {
         if (left > right) {
             return -1;
         }
@@ -52,7 +51,7 @@ public class SearchInRotatedSortedArray {
         }
     }
 
-    public int binarySearch(int[] nums, int target, int left, int right) {
+    public static int binarySearch(int[] nums, int target, int left, int right) {
         if (left > right) {
             return -1;
         }
@@ -63,8 +62,11 @@ public class SearchInRotatedSortedArray {
             return right;
         }
         int mid = left + (right - left) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        }
         if (nums[mid] > target) {
-            return binarySearch(nums, target, left, mid);
+            return binarySearch(nums, target, left, mid - 1);
         } else {
             return binarySearch(nums, target, mid + 1, right);
         }
