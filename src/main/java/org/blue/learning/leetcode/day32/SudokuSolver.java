@@ -11,7 +11,7 @@ import java.util.Set;
 public class SudokuSolver {
 
     public static void main(String[] args) {
-        String[] array = new String[]{"....5..1.",".4.3.....",".....3..1","8......2.","..2.7....",".15......",".....2...",".2.9.....","..4......"};
+        String[] array = new String[]{"..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."};
 
         char[][] board = new char[9][9];
         for (int i = 0; i < 9; i ++) {
@@ -44,27 +44,21 @@ public class SudokuSolver {
                 flag[i][j] = board[i][j] != '.';
             }
         }
-        for (int i = 0; i < 9; i ++) {
-            for (int j = 0; j < 9; j ++) {
-                System.out.print(flag[i][j] + " ");
-            }
-            System.out.println();
-        }
         doSolveSudoku(board, 0, 0, flag);
     }
 
-    private static void doSolveSudoku(char[][] board, int i, int j, boolean[][] flag) {
-        if (i == 8 && j == 8) {
-            return; // 已经解完
+    private static boolean doSolveSudoku(char[][] board, int i, int j, boolean[][] flag) {
+        if (i > 8 || j > 8) {
+            return true; // 已经解完
         }
 
         if (flag[i][j]) {
             // 这个位置之前就已经有值了 不能修改，进行下一格子的填写
             if (j == 8) {
                 // 换行
-                doSolveSudoku(board, i + 1, 0, flag);
+                return doSolveSudoku(board, i + 1, 0, flag);
             } else {
-                doSolveSudoku(board, i, j + 1, flag);
+                return doSolveSudoku(board, i, j + 1, flag);
             }
         } else {
             Set<Character> set = new HashSet<>();
@@ -82,30 +76,37 @@ public class SudokuSolver {
             }
             for (Character c : set) {
                 // 依次尝试每个字符
-                board[i][j] = c;
-                if (isValidSudoku(i, j, board)) {
+                if (isValidSudoku(i, j, board, c)) {
+                    board[i][j] = c;
                     if (j == 8) {
-                        // 换行
-                        doSolveSudoku(board, i + 1, 0, flag);
+                        // 继续尝试下一个位置
+                        if (doSolveSudoku(board, i + 1, 0, flag)) {
+                            return true;
+                        } else {
+                            // 如果解不成功，需要将这个数字重置
+                            board[i][j] = '.';
+                        }
                     } else {
-                        doSolveSudoku(board, i, j + 1, flag);
+                        if (doSolveSudoku(board, i, j + 1, flag)) {
+                            return true;
+                        } else {
+                            board[i][j] = '.';
+                        }
                     }
                 }
             }
+            return false;
         }
     }
 
-    private static boolean isValidSudoku(int i, int j, char[][] board) {
+    private static boolean isValidSudoku(int i, int j, char[][] board, char c) {
         //检查九宫格的有效性
         int startRow = 3 * (i / 3);
         int startColumn = 3 * (j / 3);
-        Set<Character> set = new HashSet<>();
         for (int m = startRow; m < startRow + 3; m ++) {
             for (int n = startColumn; n < startColumn + 3; n ++) {
-                if (board[m][n] != '.' && set.contains(board[m][n])) {
+                if (board[m][n] == c) {
                     return false;
-                } else if (board[m][n] != '.'){
-                    set.add(board[m][n]);
                 }
             }
         }
