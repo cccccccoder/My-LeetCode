@@ -11,7 +11,7 @@ import java.util.List;
 public class LetterCombinationsOfAPhoneNumber {
 
     public static void main(String[] args) {
-        for (String s : letterCombinations("")) {
+        for (String s : letterCombinations("3456789")) {
             System.out.println(s);
         }
     }
