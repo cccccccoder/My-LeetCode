@@ -34,6 +34,22 @@ public class MaximumSubarray {
         return result;
     }
 
+    /**
+     * 分治法
+     * 假设数组的左半部分和右半部分的最大和已知
+     * 则该数组的最大和分三种情况
+     * 1.在左半部分
+     * 2.在右半部分
+     * 3.左右各有一部分，跨越了中点
+     *
+     * 所以在分治完合并结果的时候，按以上三点去一一比较
+     * 从中点向2边扩展，寻找最大的值
+     * 然后与左半部分和右半部分比较
+     * @param left
+     * @param right
+     * @param nums
+     * @return
+     */
     private static int doFigureOutMaxSubArray(int left, int right, int[] nums) {
         if(left == right)
             return nums[left];
