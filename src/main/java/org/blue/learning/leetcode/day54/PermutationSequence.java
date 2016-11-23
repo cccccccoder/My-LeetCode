@@ -1,4 +1,4 @@
-package org.blue.learning.leetcode;
+package org.blue.learning.leetcode.day54;
 
 /**
  * Created by klein on 2016/11/22.
