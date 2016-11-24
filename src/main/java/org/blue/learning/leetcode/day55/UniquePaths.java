@@ -2,6 +2,7 @@ package org.blue.learning.leetcode.day55;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by klein on 2016/11/23.
@@ -9,7 +10,7 @@ import java.util.List;
 public class UniquePaths {
 
     public static void main(String[] args) {
-        System.out.println(uniquePaths(10, 10));
+        System.out.println(uniquePaths(20, 20));
     }
 
     /**
@@ -19,13 +20,26 @@ public class UniquePaths {
      * @param m
      * @param n
      * 回溯法会超时
-     * 还是采用动态规划
+     * 采用动态规划
+     * 假设d[m][n]是 m*n个格子时的解法数
+     * 推出转移方程 d[m][n] = d[m-1][n] + d[m][n-1]
+     * 因为到m,n这个点的上一步，必然是m-1,n 或 m, n-1
+     *
      * @return
      */
     public static int uniquePaths(int m, int n) {
-        List<Boolean> result = new ArrayList<>();
-        goNextPosition(0, 0, m, n, result);
-        return result.size();
+        int d[][] = new int[m][n];
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0;j < n; j ++) {
+                if (i == 0 || j == 0) {
+                    // 当i = 0 || j = 0时，是只有一行或者一列的情况，这时候只有一种走法
+                    d[i][j] = 1;
+                } else {
+                    d[i][j] = d[i - 1][j] + d[i][j - 1];
+                }
+            }
+        }
+        return d[m-1][n-1];
     }
 
     private static void goNextPosition(int currentX, int currentY, int m, int n, List<Boolean> result) {
