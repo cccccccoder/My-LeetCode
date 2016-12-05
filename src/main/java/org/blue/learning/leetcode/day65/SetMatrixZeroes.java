@@ -63,6 +63,8 @@ public class SetMatrixZeroes {
         for (int i = 1; i < row; i ++) {
             for (int j = 1; j < column; j ++) {
                 if (matrix[i][j] == 0) {
+                    // 如果某一个元素为0，就把第1列的第i的元素置为0
+                    // 把第一行的第j个元素置为0
                     matrix[i][0] = 0;
                     matrix[0][j] = 0;
                 }
